@@ -1,26 +1,35 @@
-import React from "react";
 import { Icon } from "@iconify/react";
-import SuccessModal from "./Modal/Sucessmodal";
-import { useState } from 'react'
-import { Dialog } from '@headlessui/react'
+import { Dialog, Transition } from '@headlessui/react';
+import { Fragment, useState } from 'react'
+import SuccessModal from "./Modal";
 
 const App = () => {
-  const [modal, setModal] = useState(false);
-  function handleModal (){
-    setModal(true)
+  const [isOpen, setIsOpen] = useState(false)
+
+  function closeModal() {
+    setIsOpen(false);
   }
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function preventSubmit(e: any) {
+    e.preventDefault()
+  }
+  
   return (
     <main>
       <div className="flex flex-row border border-black rounded-lg justify-center w-full h-screen bg-white">
         <div className=" w-[50%] border border-white object-contain rounded ">
           <img src="favicon.ico" alt="Logo " className="w-[20px]" />
 
-          <form className="flex flex-col justify-center items-center w-full h-full space-y-3 border border-gray-200 rounded-lg  bg-gray-100 ml-1">
+          <form onSubmit={(e) => preventSubmit(e)} className="flex flex-col justify-center items-center w-full h-full space-y-3 border border-gray-200 rounded-lg  bg-gray-100 ml-1">
             <span className="flex flex-col justify-start  items-start">
-              <text className="text-gray-800"> Sign In </text>
-              <text className="text-gray-500  text-[10px] pt-1 pb-6">
+              <p className="text-gray-800"> Sign In </p>
+              <p className="text-gray-500  text-[10px] pt-1 pb-6">
                 Enter your account details to enter our platform.
-              </text>
+              </p>
 
               <button className=" flex flex-col w-[100%] border border-gray-400 rounded h-[30px]">
                 <span className="flex flex-row justify-center items-center ml-4 mr-1 pr-1 text-gray-600">
@@ -43,13 +52,13 @@ const App = () => {
               </span>
 
               <div className="flex flex-col w-[100%] mt-8">
-                <text className="text-black text-[12px]">Email</text>
+                <p className="text-black text-[12px]">Email</p>
                 <input
                   type="email"
                   placeholder=""
                   className="border border-gray-400 rounded-md p-2 mb-4 h-[30%]"
                 />
-                <text className="text-black text-[12px]">Password</text>
+                <p className="text-black text-[12px]">Password</p>
                 <input
                   type="Password"
                   placeholder=""
@@ -62,7 +71,7 @@ const App = () => {
                   Forgot Password?
                 </a>
 
-                <button className="bg-blue-500 flex justify-center items-center space-x-2  rounded-md h-[30px] text-white mb-5">
+                <button onClick={openModal} className="bg-blue-500 flex justify-center items-center space-x-2  rounded-md h-[30px] text-white mb-5">
                   Login
                 </button>
                 <p>
@@ -90,8 +99,9 @@ const App = () => {
           </div>
         </div>
       </div>
-      {  modal === true
-      }
+
+      <SuccessModal isOpen={isOpen} onClose={closeModal} />
+      
     </main>
 
     
