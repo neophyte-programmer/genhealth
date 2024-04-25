@@ -5,6 +5,10 @@ import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
 
 const App = () => {
+  const [modal, setModal] = useState(false);
+  function handleModal (){
+    setModal(true)
+  }
   return (
     <main>
       <div className="flex flex-row border border-black rounded-lg justify-center w-full h-screen bg-white">
@@ -86,31 +90,13 @@ const App = () => {
           </div>
         </div>
       </div>
+      {  modal === true
+      }
     </main>
 
     
   );
 };
-function MyDialog() {
-  let [isOpen, setIsOpen] = useState(true)
 
-  return (
-    <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
-      <Dialog.Panel>
-        <Dialog.Title>Deactivate account</Dialog.Title>
-        <Dialog.Description>
-          This will permanently deactivate your account
-        </Dialog.Description>
-
-        <p>
-          Are you sure you want to deactivate your account? All of your data
-          will be permanently removed. This action cannot be undone.
-        </p>
-
-        <button onClick={() => setIsOpen(false)}>Deactivate</button>
-        <button onClick={() => setIsOpen(false)}>Cancel</button>
-      </Dialog.Panel>
-    </Dialog>
-  )
-}
+  
 export default App;
